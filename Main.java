@@ -1,7 +1,5 @@
-
-
-import Figure2D.Rectangle;
-import Figure2D.Triangle;
+import ThreeDFigure.*;
+import TwoDFigure.*;
 
 public class Main {
     public static void main (String[] args) {
