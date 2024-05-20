@@ -2,33 +2,46 @@ import java.io.*;
 import java.util.Scanner;
 
 public class PriceCalculation {
+    
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+/*         File folder = new File("figures/CSV");
+        File[] listOfFiles = folder.listFiles();
+        
+
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                System.out.println(file.getName());
+            }
+        } */
+
         System.out.println("Do you want to [1]'view', [2]'change', or [3]'delete' the CSV data?");
-        int action = scanner.nextInt();
+        String action = scanner.nextLine();
 
         switch (action) {
-            case 1:
-                System.out.println("Which file do you want to view? Enter filename:");
-                int viewFilename = scanner.nextInt();
+            case "1":
+                System.out.println("Which file do you want to view?");
+                String viewFilename = scanner.nextLine();
                 readCSV(viewFilename);
                 break;
-            case 2:
-                System.out.println("Which file do you want to modify? Enter filename:");
+            case "2":
+                System.out.println("Which file do you want to modify?");
                 String changeFilename = scanner.nextLine();
                 modifyCSV(changeFilename);
                 break;
-            case 3:
-                System.out.println("Which file do you want to delete from? Enter filename:");
+            case "3":
+                System.out.println("Which file do you want to delete from?");
                 String deleteFilename = scanner.nextLine();
                 deleteMaterial(deleteFilename);
                 break;
             default:
-                System.out.println("Invalid input. Please enter 'view', 'change', or 'delete'.");
+            System.out.println("Invalid input. Please enter '[1]view', '[2]change', or '[3]delete'.");
         }
     }
+    
 
     public static void readCSV(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -42,10 +55,10 @@ public class PriceCalculation {
     }
 
     public static void modifyCSV(String filename) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {  // Set true for append mode
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {  
             System.out.println("Enter the material and price to add (format: material;price):");
             String newEntry = scanner.nextLine();
-            bw.newLine();  // Move to a new line before appending
+            bw.newLine();  
             bw.write(newEntry);
             bw.flush();
             System.out.println("New entry added successfully.");
@@ -69,7 +82,7 @@ public class PriceCalculation {
                 boolean found = false;
 
                 while ((line = reader.readLine()) != null) {
-                    // Check if the line contains the material to delete
+                    
                     if (!line.trim().toLowerCase().startsWith(materialToDelete + ";")) {
                         writer.write(line + System.lineSeparator());
                     } else {
@@ -83,7 +96,7 @@ public class PriceCalculation {
                     System.out.println("Material deleted successfully.");
                 }
 
-                // Delete the original file and rename the temp file to the original file name
+                
                 if (!inputFile.delete()) {
                     System.out.println("Could not delete the original file.");
                     return;
