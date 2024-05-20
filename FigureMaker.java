@@ -1,9 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-import TwoDFigure.Triangle;
-
-public class Main {
+public class FigureMaker {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -15,9 +13,6 @@ public class Main {
         switch (action) {
             case "1":
                 readCSV(filename);
-                System.out.println("Which figure do you want to calculate?");
-                String figureToCalculate = scanner.nextLine();
-                calculateFigure(filename, figureToCalculate);
                 break;
             case "2":
                 System.out.println("Which figure do you want to delete?");
@@ -29,35 +24,6 @@ public class Main {
                 String figureType = scanner.nextLine();
                 createFigure(filename, figureType);
                 break;
-        }
-    }
-    
-        private static void calculateFigure(File filename, String figureToCalculate) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] figure = line.split(",");
-                if (figure[0].equals(figureToCalculate)) {
-                    switch (figure[0]) {
-                        case "Circle":
-                            Circle circle = new Circle(Double.parseDouble(figure[1]));
-                            System.out.println("The surface area of the circle is: " + circle.surface());
-                            break;
-                        case "Triangle":
-                            Triangle triangle = new Triangle(Double.parseDouble(figure[1]), Double.parseDouble(figure[2]), Double.parseDouble(figure[3]));
-                            System.out.println("The surface area of the triangle is: " + triangle.surface());
-                            break;
-                        case "Rectangle":
-                            Rectangle rectangle = new Rectangle(Double.parseDouble(figure[1]), Double.parseDouble(figure[2]));
-                            System.out.println("The surface area of the rectangle is: " + rectangle.surface());
-                            break;
-                        // Add more cases for other figure types
-                    }
-                    break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
